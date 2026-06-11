@@ -1,0 +1,715 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Defining Moments in Canadian History: Kunal G.</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+
+<style>
+/* ── VARIABLES ──────────────────────────────── */
+:root {
+  --red:      #C8102E;
+  --gold:     #D4AF37;
+  --cream:    #FAF7F0;
+  --navy:     #0B1F3A;
+  --navy-mid: #142B4E;
+  --charcoal: #2C2C2C;
+  --muted:    #6B6B6B;
+  --white:    #FFFFFF;
+  --gap:      5.5rem;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--charcoal); overflow-x:hidden; }
+
+/* ── HERO ──────────────────────────── */
+.hero {
+  min-height:100vh;
+  background:var(--navy);
+  display:flex; flex-direction:column;
+  justify-content:center; align-items:center;
+  text-align:center; padding:5rem 2rem;
+  position:relative; overflow:hidden;
+}
+.hero::before {
+  content:'';
+  position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 110%, rgba(200,16,46,0.28) 0%, transparent 70%),
+    repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(255,255,255,0.02) 61px),
+    repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(255,255,255,0.02) 61px);
+  pointer-events:none;
+}
+.maple-bg {
+  position:absolute; font-size:30rem; opacity:0.04;
+  top:50%; left:50%; transform:translate(-50%,-50%);
+  pointer-events:none; user-select:none; line-height:1;
+}
+.hero > * { position:relative; z-index:2; }
+
+.hero-eyebrow {
+  font-size:0.72rem; font-weight:600; letter-spacing:0.35em;
+  text-transform:uppercase; color:var(--gold); margin-bottom:1.4rem;
+}
+.hero h1 {
+  font-family:'Playfair Display',serif; font-weight:900;
+  font-size:clamp(2.8rem,8vw,5.8rem); color:#fff; line-height:1.06; max-width:920px;
+}
+.hero h1 em { font-style:italic; color:var(--gold); }
+.hero-rule { width:70px; height:2px; background:var(--red); margin:2rem auto; }
+.hero-sub  { font-size:1rem; color:rgba(255,255,255,0.5); max-width:580px; line-height:1.75; }
+.hero-meta { margin-top:1.8rem; font-size:0.73rem; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.28); }
+
+/* hero photo strip */
+.hero-strip {
+  display:flex; gap:0.5rem; margin-top:3rem;
+  width:100%; max-width:900px; height:140px;
+  border-radius:6px; overflow:hidden;
+}
+.hero-strip img {
+  flex:1; min-width:0; object-fit:cover;
+  opacity:0.72; transition:opacity 0.35s, transform 0.5s;
+}
+.hero-strip img:hover { opacity:1; transform:scale(1.04); }
+
+/* ── STICKY NAV ────────────────────── */
+.nav {
+  position:sticky; top:0; z-index:200;
+  background:rgba(11,31,58,0.97); backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(212,175,55,0.18);
+  display:flex; justify-content:center; flex-wrap:wrap;
+}
+.nav a {
+  padding:1rem 1.25rem;
+  font-size:0.68rem; font-weight:600; letter-spacing:0.12em;
+  text-transform:uppercase; color:rgba(255,255,255,0.5);
+  text-decoration:none; white-space:nowrap; transition:color 0.2s;
+}
+.nav a:hover { color:var(--gold); }
+
+/* ── INTRO ─────────────────────────── */
+.section-intro {
+  max-width:820px; margin:var(--gap) auto; padding:0 2rem; text-align:center;
+}
+.label {
+  display:block; font-size:0.7rem; font-weight:700;
+  letter-spacing:0.3em; text-transform:uppercase;
+  color:var(--red); margin-bottom:1rem;
+}
+.section-intro h2 {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.8rem,4vw,2.7rem); color:var(--navy); margin-bottom:1.4rem;
+}
+.section-intro p { font-size:1rem; line-height:1.85; color:var(--muted); }
+
+/* era banner */
+.era-bar {
+  max-width:1140px; margin:0 auto 3.5rem; padding:0 2rem;
+  display:flex; align-items:center; gap:1.2rem;
+}
+.era-bar hr  { flex:1; border:none; border-top:1px solid rgba(200,16,46,0.25); }
+.era-bar span {
+  font-size:0.68rem; font-weight:700; letter-spacing:0.28em;
+  text-transform:uppercase; color:var(--red); white-space:nowrap;
+}
+
+/* ── MOMENT LAYOUT ─────────────────── */
+.moment { max-width:1140px; margin:0 auto var(--gap); padding:0 2rem; }
+
+/* Float layout — text wraps naturally around image block */
+.moment-grid::after { content:''; display:table; clear:both; }
+
+.img-col {
+  float: left;
+  width: 42%;
+  margin: 0 2.8rem 1.4rem 0;
+}
+.moment-grid.flip .img-col {
+  float: right;
+  margin: 0 0 1.4rem 2.8rem;
+}
+.content-panel { overflow: visible; }
+
+/* Prevent key-facts bullet markers bleeding into image column */
+.key-facts { overflow: hidden; }
+
+/* image panel */
+.img-main {
+  width:100%; aspect-ratio:16/10;
+  border-radius:4px; overflow:hidden;
+  background:var(--navy); margin-bottom:0.55rem; position:relative;
+}
+.img-main img {
+  width:100%; height:100%; object-fit:cover;
+  opacity:0.88; transition:opacity 0.4s, transform 0.55s; display:block;
+}
+.img-main:hover img { opacity:1; transform:scale(1.04); }
+.img-caption {
+  font-size:0.64rem; color:rgba(11,31,58,0.42);
+  font-style:italic; line-height:1.5; padding:0 0.15rem; margin-bottom:0.6rem;
+}
+
+/* secondary image grid */
+.img-grid { display:grid; gap:0.45rem; margin-top:0.45rem; }
+.img-grid-2 { grid-template-columns:1fr 1fr; }
+.img-grid-3 { grid-template-columns:1fr 1fr 1fr; }
+.img-thumb {
+  aspect-ratio:4/3; border-radius:3px; overflow:hidden;
+  background:var(--navy-mid); position:relative;
+}
+.img-thumb img {
+  width:100%; height:100%; object-fit:cover;
+  opacity:0.82; transition:opacity 0.3s, transform 0.45s; display:block;
+}
+.img-thumb:hover img { opacity:1; transform:scale(1.06); }
+.img-thumb-cap {
+  position:absolute; bottom:0; left:0; right:0;
+  font-size:0.54rem; color:rgba(255,255,255,0.65);
+  padding:0.28rem 0.4rem; font-style:italic;
+  background:linear-gradient(to top, rgba(11,31,58,0.75), transparent);
+}
+
+/* content panel */
+.moment-num {
+  font-family:'Playfair Display',serif; font-size:5rem; font-weight:900;
+  color:rgba(200,16,46,0.07); line-height:1; display:block; margin-bottom:-1.6rem;
+}
+.era-badge {
+  display:inline-block; background:var(--navy); color:var(--gold);
+  font-size:0.63rem; font-weight:700; letter-spacing:0.2em;
+  text-transform:uppercase; padding:0.3rem 0.8rem; border-radius:2px; margin-bottom:1rem;
+}
+.moment h2 {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.45rem,2.8vw,2rem); color:var(--navy);
+  line-height:1.2; margin-bottom:0.3rem;
+}
+.moment-date {
+  display:block; font-size:0.75rem; font-weight:600; letter-spacing:0.14em;
+  text-transform:uppercase; color:var(--red); margin-bottom:1rem;
+}
+.concept-pill {
+  display:inline-flex; align-items:center; gap:0.35rem;
+  border:1.5px solid var(--gold); color:var(--navy);
+  font-size:0.68rem; font-weight:700; letter-spacing:0.1em;
+  text-transform:uppercase; padding:0.28rem 0.7rem;
+  border-radius:2px; margin-bottom:1.4rem;
+}
+.concept-pill::before { content:'◆'; color:var(--gold); font-size:0.5rem; }
+
+/* key facts */
+.key-facts {
+  background:var(--white); border-left:3px solid var(--gold);
+  border-radius:0 4px 4px 0; padding:1rem 1.2rem; margin-bottom:1.2rem;
+  box-shadow:0 2px 10px rgba(0,0,0,0.05);
+}
+.kf-title {
+  font-size:0.65rem; font-weight:700; letter-spacing:0.2em;
+  text-transform:uppercase; color:var(--gold); margin-bottom:0.55rem;
+}
+.key-facts ul { list-style:none; }
+.key-facts li {
+  font-size:0.88rem; line-height:1.65; color:var(--charcoal);
+  padding:0.18rem 0 0.18rem 1rem; position:relative;
+  border-bottom:1px solid rgba(0,0,0,0.05);
+}
+.key-facts li::before { content:'›'; position:absolute; left:0; color:var(--red); font-weight:700; }
+.key-facts li:last-child { border-bottom:none; }
+
+.subhead {
+  font-family:'Playfair Display',serif; font-size:1rem; font-weight:700;
+  color:var(--navy); margin:1.4rem 0 0.5rem;
+  padding-left:0.7rem; border-left:3px solid var(--red);
+}
+.content-panel p {
+  font-size:0.94rem; line-height:1.88;
+  color:var(--charcoal); margin-bottom:0.9rem;
+}
+
+hr.divider { border:none; border-top:1px solid rgba(212,175,55,0.2); margin:var(--gap) auto; max-width:1140px; }
+
+/* ── REFLECTION ─────────────────────── */
+.reflection {
+  background:var(--navy); padding:6rem 2rem;
+  position:relative; overflow:hidden;
+}
+.reflection::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse 65% 70% at 15% 50%, rgba(200,16,46,0.14), transparent 60%);
+  pointer-events:none;
+}
+.refl-inner { max-width:800px; margin:0 auto; position:relative; z-index:1; }
+.refl-inner .label { color:var(--gold); }
+.refl-inner h2 {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.8rem,4vw,2.7rem); color:#fff;
+  margin-bottom:2rem; line-height:1.2;
+}
+.refl-inner p { font-size:0.97rem; line-height:1.9; color:rgba(255,255,255,0.68); margin-bottom:1.1rem; }
+.refl-inner p strong { color:var(--gold); }
+
+/* ── BIBLIOGRAPHY ──────────────────── */
+.bib-section { max-width:920px; margin:var(--gap) auto; padding:0 2rem; }
+.bib-section h2 {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.5rem,3vw,2.1rem); color:var(--navy); margin-bottom:0.4rem;
+}
+.bib-note { font-size:0.83rem; color:var(--muted); margin-bottom:2.2rem; }
+.bib-entry {
+  padding:1.4rem 1.5rem; border-left:3px solid var(--gold);
+  background:var(--white); margin-bottom:1.1rem;
+  border-radius:0 4px 4px 0; box-shadow:0 1px 8px rgba(0,0,0,0.05);
+}
+.bib-cite {
+  font-size:0.88rem; line-height:1.72; color:var(--charcoal);
+  padding-left:1.5rem; text-indent:-1.5rem; margin-bottom:0.7rem;
+}
+.bib-anno { font-size:0.85rem; line-height:1.78; color:var(--muted); border-top:1px solid rgba(0,0,0,0.07); padding-top:0.7rem; }
+
+/* ── FOOTER ────────────────────────── */
+footer {
+  background:var(--navy-mid); padding:2.5rem 2rem;
+  text-align:center; font-size:0.77rem; color:rgba(255,255,255,0.28); letter-spacing:0.07em;
+}
+footer span { color:var(--gold); }
+
+/* ── SCROLL FADE ───────────────────── */
+.fade { opacity:0; transform:translateY(26px); transition:opacity 0.65s ease, transform 0.65s ease; }
+.fade.in { opacity:1; transform:none; }
+
+/* ── RESPONSIVE ────────────────────── */
+@media(max-width:800px){
+  .img-col, .moment-grid.flip .img-col { float:none; width:100%; margin:0 0 1.5rem 0; }
+  .hero-strip { height:90px; }
+  .nav a { padding:0.7rem 0.85rem; font-size:0.62rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+  HERO
+  EDIT: title, subtitle, your name below
+════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="maple-bg">🍁</div>
+
+  <div class="hero-eyebrow">Canadian Museum of History  ·  Defining Moments Exhibit 2026</div>
+
+  <h1>Defining <em>Moments</em><br>of Canadian History</h1>
+  <div class="hero-rule"></div>
+  <p class="hero-sub">Four developments that altered the direction of the country, evaluated through historical thinking concepts.</p>
+  <!-- EDIT: your name / year -->
+  <p class="hero-meta">Kunal G.  ·  History of Canada CPT  ·  2026</p>
+
+  <!--
+    HERO IMAGE STRIP
+    EDIT: replace any src="..." with your own image URL from Google.
+    Right-click any image on a webpage → Copy image address → paste here.
+  -->
+  <div class="hero-strip">
+    <img referrerpolicy="no-referrer" src="https://www.aci-iac.ca/wp-content/uploads/2021/04/walter-s-allward-vimy-memorial-rear-2048x1365.jpg"
+         alt="Vimy Ridge Memorial">
+    <img referrerpolicy="no-referrer" src="https://media-cdn.tripadvisor.com/media/photo-s/09/1a/36/66/famous-five-monument.jpg"
+         alt="Famous Five statue">
+    <img referrerpolicy="no-referrer" src="https://downtownrideau.com/wp-content/uploads/2023/09/211288756_2052684204881947_5264638277219889446_n.jpg">
+    <img referrerpolicy="no-referrer" src="https://images.radio-canada.ca/q_auto,w_740/v1/ici-premiere/16x9/constitution-canada-signature-transfert.jpg"
+         alt="Constitution signing 1982">
+    <img referrerpolicy="no-referrer" src="https://s3.amazonaws.com/zweb-s3.uploads/ez2/wp-content/uploads/2021/02/GettyImages-185311041.jpg"
+         alt="Canadian Flag">
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+  STICKY NAV — anchor links to each section id
+════════════════════════════════════════════ -->
+<nav class="nav">
+  <a href="#overview">Overview</a>
+  <a href="#vimy">① Vimy Ridge</a>
+  <a href="#persons">② Persons Case</a>
+  <a href="#languages">③ Official Languages</a>
+  <a href="#charter">④ Charter of Rights</a>
+  <a href="#reflection">Reflection</a>
+  <a href="#bibliography">Bibliography</a>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+  OVERVIEW
+════════════════════════════════════════════ -->
+<section class="section-intro fade" id="overview">
+  <span class="label">About This Exhibit</span>
+  <h2>What Makes a Defining Moment?</h2>
+  <p>A <strong>defining moment</strong> in history is an event, policy, or shift that altered Canada's political, social, or economic path. These developments left enduring legal and cultural legacies, influenced national governance, and changed how citizens interact with the state. The four examples documented here, dating from 1917 to 1982, represent distinct historical transitions: international autonomy, the legal status of women, state-level bilingualism, and the constitutional protection of individual freedoms.</p>
+</section>
+
+<!-- ERA DIVIDER -->
+<div class="era-bar fade">
+  <hr><span>Pre-1950 Era  (1914 – 1949)</span><hr>
+</div>
+
+<!-- ═══════════════════════════════════════════
+  MOMENT 1 — BATTLE OF VIMY RIDGE
+  Historical Concept: Historical Significance
+════════════════════════════════════════════ -->
+<section class="moment fade" id="vimy">
+  <div class="moment-grid">
+
+    <!-- IMAGE COLUMN -->
+    <div class="img-col">
+      <!-- Main image -->
+      <div class="img-main">
+        <img referrerpolicy="no-referrer" src="https://www.aci-iac.ca/wp-content/uploads/2021/04/walter-s-allward-vimy-memorial-rear-2048x1365.jpg"
+             alt="Canadian National Vimy Memorial, France">
+      </div>
+      <p class="img-caption">Canadian National Vimy Memorial, Vimy, France, dedicated July 26, 1936. The land was granted to Canada by France. © Wikimedia Commons (Public Domain)</p>
+
+      <!-- 3-image grid -->
+      <div class="img-grid img-grid-3">
+        <div class="img-thumb">
+          <img referrerpolicy="no-referrer" src="https://files.vimyfoundation.ca/uploads/en/2015/09/13090355/over-the-top.jpg"
+               alt="Vimy Ridge landscape 1917">
+          <div class="img-thumb-cap">The ridge in April 1917</div>
+        </div>
+        <div class="img-thumb">
+          <img referrerpolicy="no-referrer" src="https://upload.wikimedia.org/wikipedia/commons/a/a2/ArthurCurrie.jpg"
+               alt="General Arthur Currie" style="object-position:top">
+          <div class="img-thumb-cap">Gen. Arthur Currie, Canadian Corps commander</div>
+        </div>
+        <div class="img-thumb">
+          <img referrerpolicy="no-referrer" src="https://cdn11.bigcommerce.com/s-yzgoj/images/stencil/1280x1280/products/1612219/4930414/apigesvni__02465.1626807329.jpg?c=2"
+               alt="Canadian troops in WWI trenches">
+          <div class="img-thumb-cap">Canadian soldiers in trenches, WWI</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTENT COLUMN -->
+    <div class="content-panel">
+      <span class="moment-num">01</span>
+      <div class="era-badge">Pre-1950 · World War I</div>
+      <h2>The Battle of Vimy Ridge</h2>
+      <span class="moment-date">April 9–12, 1917</span>
+      <div class="concept-pill">Historical Significance</div>
+
+      <div class="key-facts">
+        <div class="kf-title">Key Facts</div>
+        <ul>
+          <li>Location: Vimy, Pas-de-Calais, northern France</li>
+          <li>All four divisions of the Canadian Corps deployed together for the first time</li>
+          <li>10,602 Canadian casualties recorded, including 3,598 deaths</li>
+          <li>Over 4,000 German soldiers captured during the four-day assault</li>
+          <li>The sector had previously withstood major French and British offensives</li>
+          <li>Strengthened Canada's case for independent representation at peace negotiations</li>
+        </ul>
+      </div>
+
+      <h3 class="subhead">Summary and Rationale</h3>
+      <p>The Battle of Vimy Ridge was an offensive during the First World War executed in northern France between April 9 and 12, 1917. The Canadian Corps was ordered to capture a fortified escarpment that had previously resisted British and French efforts. Utilizing detailed technical preparation, a coordinated creeping artillery barrage, and preliminary exercises on simulated terrain, the Canadian forces advanced and secured the high ground over four days, sustaining significant losses while taking the position.</p>
+      <p>This battle is classified as a defining moment due to its structural impact on the Canadian military and its diplomatic aftermath. Operating as a unified formation under domestic operational leadership, the performance of the Canadian Corps modified the country's status within the British Empire. The victory established a precedent for separate institutional representation on the international stage, culminating in Canada signing the Treaty of Versailles independently.</p>
+
+      <h3 class="subhead">Application of Historical Significance</h3>
+      <p>Historical significance is determined by the scope, endurance, and systemic impact of an event on a population, as well as its capacity to clarify historical transitions.</p>
+      <p>The engagement at Vimy holds military and constitutional meaning. Tactically, capturing the ridge secured a key observation point on the Western Front. Long-term, the operation altered Canada's political relationship with Great Britain. The collective mobilization of troops from across the country reinforced a separate national identity, supporting the legislative autonomy later formalized in the 1931 Statute of Westminster.</p>
+      <p>The event also maintains an institutional commemorative framework. The monument designed by Walter Allward stands on land designated for Canadian stewardship by France, serving as an official symbol of wartime mobilization. Annual civic acknowledgments on April 15 emphasize the event's role in public historical memory and its integration into domestic educational curricula.</p>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════
+  MOMENT 2 — THE PERSONS CASE
+  Historical Concept: Historical Perspective
+════════════════════════════════════════════ -->
+<section class="moment fade" id="persons">
+  <div class="moment-grid flip">
+
+    <!-- IMAGE COLUMN (appears on right due to flip) -->
+    <div class="img-col">
+      <div class="img-main">
+        <img referrerpolicy="no-referrer" src="https://media-cdn.tripadvisor.com/media/photo-s/09/1a/36/66/famous-five-monument.jpg"
+             alt="Famous Five monument, Parliament Hill Ottawa">
+      </div>
+      <p class="img-caption">The Famous Five monument, Parliament Hill, Ottawa, by sculptor Barbara Paterson, unveiled in 2000. © Wikimedia Commons (CC)</p>
+
+      <div class="img-grid img-grid-2">
+        <div class="img-thumb">
+          <img referrerpolicy="no-referrer" src="https://d3d0lqu00lnqvz.cloudfront.net/media/media/f2df0151-1333-440b-ae34-65430693183c.jpg"
+               alt="Emily Murphy" style="object-position:top">
+          <div class="img-thumb-cap">Emily Murphy, lead petitioner in the case</div>
+        </div>
+        <div class="img-thumb">
+          <img referrerpolicy="no-referrer" src="https://static.wixstatic.com/media/b32b68_e3ad92d3ca984f1cb6f73a2cad9ba063~mv2.jpg/v1/fill/w_358,h_520,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Nellie_McClung_Manitoba_1908-1910.jpg"
+               alt="Nellie McClung" style="object-position:top">
+          <div class="img-thumb-cap">Nellie McClung, author and activist</div>
+        </div>
+        <div class="img-thumb">
+          <img referrerpolicy="no-referrer" src="https://www.worldsfacts.com/wp-content/uploads/2023/12/Irene-Parlby-733x1024.jpg"
+               alt="Irene Parlby" style="object-position:top">
+          <div class="img-thumb-cap">Irene Parlby, Alberta MLA</div>
+        </div>
+        <div class="img-thumb">
+          <img referrerpolicy="no-referrer" src="https://immigration.ca/wp-content/uploads/2023/06/Supreme-Court-Canada_488456303-scaled.jpeg"
+               alt="Supreme Court of Canada">
+          <div class="img-thumb-cap">The Supreme Court of Canada, Ottawa</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTENT COLUMN -->
+    <div class="content-panel">
+      <span class="moment-num">02</span>
+      <div class="era-badge">Pre-1950 · Women's Rights</div>
+      <h2>The Persons Case</h2>
+      <span class="moment-date">October 18, 1929</span>
+      <div class="concept-pill">Historical Perspective</div>
+
+      <div class="key-facts">
+        <div class="kf-title">Key Facts</div>
+        <ul>
+          <li>Official legal citation: Edwards v. Canada (Attorney General)</li>
+          <li>Appealed to the Judicial Committee of the Privy Council in London, England</li>
+          <li>Reversed a prior 1928 judgment by the Supreme Court of Canada</li>
+          <li>Initiated by five Alberta activists: Murphy, McClung, Parlby, McKinney, and Edwards</li>
+          <li>Determined that women were included under the term "persons" in the BNA Act</li>
+          <li>Established eligibility for women to be appointed to the Senate of Canada</li>
+        </ul>
+      </div>
+
+      <h3 class="subhead">Summary and Rationale</h3>
+      <p>The Persons Case was a constitutional decision issued on October 18, 1929, by the Judicial Committee of the Privy Council. The ruling established that women were "qualified persons" under Section 24 of the British North America Act, making them eligible for appointment to the Senate of Canada. Five female reformers from Alberta appealed an earlier decision by the Supreme Court of Canada, which had ruled that the statutory language of 1867 excluded women from federal upper house appointments.</p>
+      <p>This decision constitutes a defining moment because it adjusted the constitutional framework governing public office eligibility. By invalidating older legal interpretations that restricted formal political participation based on gender, the ruling established the legal basis for women to serve in federal administrative and legislative positions.</p>
+
+      <h3 class="subhead">Application of Historical Perspective</h3>
+      <p>Historical perspective involves analyzing the social codes, legal standards, and shared values of a past era using contemporary records rather than modern criteria.</p>
+      <p>Evaluating the Persons Case requires examining the legal and social conditions of early twentieth-century Canada. The British North America Act of 1867 was drafted in a period when women did not possess federal voting rights, could not hold legislative office, and faced restrictions in property ownership and professional employment. The original statutory language reflected those nineteenth-century limits.</p>
+      <p>The opposition to women entering the Senate relied on traditional interpretations of constitutional text and established legal precedents regarding gender roles. Conversely, the petitioners utilized the growing international suffrage movement and modern legal frameworks to argue that the constitution must adapt to social changes. Documenting both positions outlines the legal debate of 1929 without retroactively applying modern assumptions to the historical actors involved.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- POST-1950 ERA DIVIDER -->
+<div class="era-bar fade" style="margin-top:var(--gap)">
+  <hr><span>Post-1950 Era  (1950 – Present)</span><hr>
+</div>
+
+<!-- ═══════════════════════════════════════════
+  MOMENT 3 — OFFICIAL LANGUAGES ACT
+  Historical Concept: Continuity & Change
+════════════════════════════════════════════ -->
+<section class="moment fade" id="languages">
+  <div class="moment-grid">
+
+    <!-- IMAGE COLUMN -->
+    <div class="img-col">
+      <div class="img-main">
+        <img referrerpolicy="no-referrer" src="https://smartcdn.gprod.postmedia.digital/vancouversun/wp-content/uploads/2019/09/app2000092962978.jpg"
+             alt="Prime Minister Pierre Elliott Trudeau, 1969" style="object-position:top">
+      </div>
+      <p class="img-caption">Prime Minister Pierre Elliott Trudeau in 1969, during the introduction of federal language legislation. © Library of Parliament / Wikimedia Commons (Public Domain)</p>
+
+      <div class="img-grid img-grid-3">
+        <div class="img-thumb">
+          <img referrerpolicy="no-referrer" src="https://downtownrideau.com/wp-content/uploads/2023/09/211288756_2052684204881947_5264638277219889446_n.jpg"
+               alt="Parliament Hill Ottawa">
+          <div class="img-thumb-cap">Parliament Hill, Ottawa, where the statute was enacted</div>
+        </div>
+        <div class="img-thumb">
+          <img referrerpolicy="no-referrer" src="https://www.voyagesgendron.com/wp-content/uploads/2020/07/TQ-011256.jpg"
+               alt="Quebec City, Chateau Frontenac">
+          <div class="img-thumb-cap">Quebec City, a center of francophone population</div>
+        </div>
+        <div class="img-thumb">
+          <img referrerpolicy="no-referrer" src="https://s3.amazonaws.com/zweb-s3.uploads/ez2/wp-content/uploads/2021/02/GettyImages-185311041.jpg"
+               alt="Canadian flag">
+          <div class="img-thumb-cap">The National Flag of Canada</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTENT COLUMN -->
+    <div class="content-panel">
+      <span class="moment-num">03</span>
+      <div class="era-badge">Post-1950 · Federal Policy</div>
+      <h2>The Official Languages Act</h2>
+      <span class="moment-date">July 9, 1969</span>
+      <div class="concept-pill">Continuity & Change</div>
+
+      <div class="key-facts">
+        <div class="kf-title">Key Facts</div>
+        <ul>
+          <li>Enacted under the administration of Prime Minister Pierre Trudeau</li>
+          <li>Established English and French as the two official languages of federal institutions</li>
+          <li>Mandated that all federal departments offer services in both languages</li>
+          <li>Created the independent Office of the Commissioner of Official Languages</li>
+          <li>Followed the recommendations of the Royal Commission on Bilingualism and Biculturalism</li>
+          <li>Updated in 1988 to expand bilingual requirements within federal agencies</li>
+        </ul>
+      </div>
+
+      <h3 class="subhead">Summary and Rationale</h3>
+      <p>The Official Languages Act, passed in July 1969, designated English and French as Canada's official languages for all federal institutional operations. The legislation required federal departments, Crown corporations, and agencies to deliver public services in both languages where demographic numbers warranted, and established a regulatory commissioner to monitor compliance. This statutory response followed the findings of the Royal Commission on Bilingualism and Biculturalism, which detailed disparities in francophone employment and language access within public administration.</p>
+      <p>This policy change is a defining moment because it institutionalized a bilingual framework for federal governance. The law adjusted state infrastructure to reflect demographic realities, changed hiring practices within the civil service, and provided a legal mechanism to address linguistic representation during a period of active constitutional debate in Quebec.</p>
+
+      <h3 class="subhead">Application of Continuity and Change</h3>
+      <p>Analyzing continuity and change involves tracking which structural features persisted and which were modified over a specific timeline, demonstrating how a state adapts to internal pressures.</p>
+      <p><strong>Structural Changes:</strong> The 1969 statute ended the operational dominance of English within federal departments, ensuring citizens could interact with national institutions in either language. It created a diversified public service hiring model, expanded language access outside of Quebec, and supported French-language education programs across various provinces through federal funding arrangements.</p>
+      <p><strong>Structural Continuities:</strong> Despite these legislative changes, regional imbalances in language usage and demographic distribution remained consistent. Disputes regarding minority language education rights and provincial service delivery persisted in many parts of the country. Political debates over provincial language jurisdiction, particularly within Quebec and New Brunswick, continued after 1969, showing that long-standing linguistic regional adjustments remained active alongside the new federal statutory baseline.</p>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════
+  MOMENT 4 — CHARTER OF RIGHTS AND FREEDOMS
+  Historical Concept: Cause & Consequence
+════════════════════════════════════════════ -->
+<section class="moment fade" id="charter">
+  <div class="moment-grid flip">
+
+    <!-- IMAGE COLUMN (appears right due to flip) -->
+    <div class="img-col">
+      <div class="img-main">
+        <img referrerpolicy="no-referrer" src="https://images.radio-canada.ca/q_auto,w_740/v1/ici-premiere/16x9/constitution-canada-signature-transfert.jpg"
+             alt="Queen Elizabeth II and PM Trudeau signing the Constitution Act, April 17, 1982">
+      </div>
+      <p class="img-caption">The signing of the Constitution Act on April 17, 1982, in Ottawa. © Library and Archives Canada / Wikimedia Commons (Public Domain)</p>
+
+      <div class="img-grid img-grid-3">
+        <div class="img-thumb">
+          <img referrerpolicy="no-referrer" src="https://www.canada.ca/content/dam/pch/images/services/download-order-charter-bill/charter-rights-freedoms-eng.jpg"
+               alt="Canadian Charter of Rights and Freedoms document">
+          <div class="img-thumb-cap">The Canadian Charter of Rights and Freedoms</div>
+        </div>
+        <div class="img-thumb">
+          <img referrerpolicy="no-referrer" src="https://www.canadianmanufacturing.com/wp-content/uploads/2020/09/Pierre_Elliot_Trudeau.jpg"
+               alt="Pierre Trudeau 1981 constitutional negotiations" style="object-position:top">
+          <div class="img-thumb-cap">Constitutional discussions in 1981</div>
+        </div>
+        <div class="img-thumb">
+          <img referrerpolicy="no-referrer" src="https://immigration.ca/wp-content/uploads/2023/06/Supreme-Court-Canada_488456303-scaled.jpeg"
+               alt="Supreme Court of Canada">
+          <div class="img-thumb-cap">The Supreme Court of Canada building</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTENT COLUMN -->
+    <div class="content-panel">
+      <span class="moment-num">04</span>
+      <div class="era-badge">Post-1950 · Constitutional Law</div>
+      <h2>Patriation and the Charter of Rights and Freedoms</h2>
+      <span class="moment-date">April 17, 1982</span>
+      <div class="concept-pill">Cause & Consequence</div>
+
+      <div class="key-facts">
+        <div class="kf-title">Key Facts</div>
+        <ul>
+          <li>The Constitution Act of 1982 was proclaimed by Queen Elizabeth II and Prime Minister Trudeau</li>
+          <li>Entrenched the Canadian Charter of Rights and Freedoms within the supreme law</li>
+          <li>Transferred constitutional amendment authority from the United Kingdom to Canada</li>
+          <li>Adopted without the endorsement of the provincial government of Quebec</li>
+          <li>Section 15 equality provisions came into legal effect on April 17, 1985</li>
+          <li>Expanded the scope of judicial review over federal and provincial statutes</li>
+        </ul>
+      </div>
+
+      <h3 class="subhead">Summary and Rationale</h3>
+      <p>On April 17, 1982, Canada patriated its founding constitutional documents, transferring final amendment authority from the British Parliament to domestic institutions. The Constitution Act of 1982 integrated an independent domestic amending formula and established the Canadian Charter of Rights and Freedoms. This codification protected civil liberties, mobility mandates, legal protections, and equality parameters from simple legislative repeal, rendering them part of the supreme law of the land.</p>
+      <p>Patriation serves as a defining moment by completing Canada's formal transition to full legal autonomy. The introduction of the Charter fundamentally reconfigured the division of power between elected assemblies and the judiciary, allowing individual citizens to challenge existing provincial and federal statutes through the court system.</p>
+
+      <h3 class="subhead">Application of Cause and Consequence</h3>
+      <p>Cause and consequence identifies the short-term and long-term factors that generated an event, alongside the subsequent outcomes, both structural and unintended.</p>
+      <p><strong>Long-Term Causes:</strong> From 1867 onward, Canada required British parliamentary approval to alter its core constitutional structure because federal and provincial governments could not agree on a domestic amendment process. This dependency remained after the 1931 Statute of Westminster, as repeated federal-provincial conferences failed to resolve the jurisdictional balance.</p>
+      <p><strong>Immediate Causes:</strong> The process accelerated following the 1980 Quebec referendum on sovereignty-association, which led to a federal commitment to reform the constitutional status quo. Prime Minister Pierre Trudeau utilized this period to negotiate with provincial premiers, eventually securing a compromise with nine provinces during multilateral meetings in late 1981.</p>
+      <p><strong>Intended Consequences:</strong> Canada secured full sovereignty over its constitutional adjustments. The Charter established uniform legal standards across all provinces, providing a statutory tool for civil rights litigation. Section 15 equality litigation led to changes in labor law, family law, and institutional rights for minority groups.</p>
+      <p><strong>Unintended Consequences:</strong> The agreement proceeded without the assent of Quebec's legislative assembly, which influenced subsequent regional political alignments and led to unsuccessful structural negotiations at Meech Lake and Charlottetown. Furthermore, the reliance on judicial interpretation shifted policy-making influence toward the courts, altering how legislative drafts are scrutinized before enactment.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+  REFLECTION
+  EDIT: update this text with your own thoughts
+════════════════════════════════════════════ -->
+<section class="reflection fade" id="reflection">
+  <div class="refl-inner">
+    <span class="label">Reflection Response</span>
+    <h2>Is Canada a Country You Can Be Proud Of?</h2>
+
+    <p>Evaluating Canada’s historical trajectory reveals a nation defined not by a static, unblemished identity, but by a continuous, often turbulent process of structural negotiation, systemic reform, and civic accountability. When viewed as a collective landscape, milestones in military autonomy, gender equity, linguistic recognition, and constitutional rights demonstrate an evolving institutional framework that has repeatedly bent to accommodate the demands of its citizens. However, a complete historical perspective requires acknowledging that these strides toward progress did not occur in isolation; they coexisted with deep domestic polarizations, structural exclusions, and systemic injustices, particularly regarding the historic and ongoing treatment of Indigenous peoples through assimilationist policies like the residential school system, as well as discriminatory immigration barriers like the head tax. Pride in the Canadian narrative should therefore not stem from a false assumption of historical perfection, but rather from a profound respect for the persistent activism, legal challenges, and cross-cultural advocacy that have consistently forced the state to confront its shortcomings and expand its definitions of equality. Ultimately, Canada is a country to be proud of because its true strength lies in its capacity for evolution, demonstrating that national identity is an active, ongoing project of democratic accountability where citizens retain the power to challenge existing laws and shape a more just, inclusive future.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+  ANNOTATED BIBLIOGRAPHY — Chicago Style
+  EDIT: update or add entries below
+════════════════════════════════════════════ -->
+<section class="bib-section fade" id="bibliography">
+  <span class="label">Sources</span>
+  <h2>Annotated Bibliography</h2>
+  <p class="bib-note">Chicago Style  ·  Alphabetical Order  ·  7 Sources  ·  4 Annotated</p>
+
+  <div class="bib-entry">
+    <p class="bib-cite">Canadian War Museum. "The Battle of Vimy Ridge." Canadian War Museum. Accessed June 2026. https://www.warmuseum.ca/cwm/exhibitions/vimy/index_e.shtml.</p>
+  </div>
+
+  <div class="bib-entry">
+    <p class="bib-cite">CBC Learning. "The Persons Case: Emily Murphy and the Famous Five." CBC Digital Archives. Accessed June 2026. https://www.cbc.ca/archives/topic/the-persons-case.</p>
+    <p class="bib-anno">This archival collection provides media documentation and written summaries concerning the legal proceedings of the Persons Case. The resource details the social history of the 1920s reform movements and tracks the case from the Supreme Court of Canada to the Privy Council in London. It is used in this project to cross-reference the arguments presented by the petitioners and to analyze the contemporary social environment that influenced the challenge to Section 24 of the BNA Act.</p>
+  </div>
+
+  <div class="bib-entry">
+    <p class="bib-cite">Foot, Richard. "Battle of Vimy Ridge." <em>The Canadian Encyclopedia.</em> Last modified April 4, 2019. https://www.thecanadianencyclopedia.ca/en/article/vimy-ridge.</p>
+    <p class="bib-anno">This reference entry provides a peer-reviewed overview of the military planning, logistics, and casualties associated with the Vimy offensive in 1917. It details the tactical coordination of the Canadian Corps and assesses the short-term and long-term political outcomes of the battle. The information supports the project's analysis of historical significance by providing verified casualty data and operational timelines.</p>
+  </div>
+
+  <div class="bib-entry">
+    <p class="bib-cite">Government of Canada. <em>Official Languages Act.</em> R.S.C. 1985, c. 31 (4th Supp.). Ottawa: Department of Justice, 1988. https://laws-lois.justice.gc.ca/eng/acts/O-3.01/.</p>
+    <p class="bib-anno">This primary legislative text sets out the legal mandates governing language usage within federal agencies, crown corporations, and the public service. It provides the statutory baseline used to verify the precise responsibilities of federal institutions and the regulatory authority granted to the Office of the Commissioner of Official Languages, supporting the continuity and change analysis.</p>
+  </div>
+
+  <div class="bib-entry">
+    <p class="bib-cite">Historica Canada. "The Canadian Charter of Rights and Freedoms." <em>The Canadian Encyclopedia.</em> Last modified January 31, 2019. https://www.thecanadianencyclopedia.ca/en/article/canadian-charter-of-rights-and-freedoms.</p>
+    <p class="bib-anno">This legal history overview outlines the drafting, political negotiations, and enactment of the 1982 Constitution Act. The text analyzes the introduction of the Charter and documents the positions of the provincial governments, including the lack of assent from Quebec. This analysis helps verify the direct political consequences of patriation discussed in the final section of the exhibit.</p>
+  </div>
+
+  <div class="bib-entry">
+    <p class="bib-cite">Historica Canada. "Persons Case." <em>The Canadian Encyclopedia.</em> Last modified October 18, 2019. https://www.thecanadianencyclopedia.ca/en/article/persons-case.</p>
+  </div>
+
+  <div class="bib-entry">
+    <p class="bib-cite">Parkinson, Joe. "Official Languages Act." <em>The Canadian Encyclopedia.</em> Last modified July 9, 2020. https://www.thecanadianencyclopedia.ca/en/article/official-languages-act.</p>
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Canadian Defining Moments Exhibit  ·  <span>Kunal G.</span>  ·  History of Canada CPT 2026</p>
+  <p style="margin-top:0.5rem;">Created for the Canadian Museum of History  ·  Images: Wikimedia Commons (Public Domain / CC)</p>
+</footer>
+
+<script>
+// Scroll-triggered fade-in animations
+const io = new IntersectionObserver(
+  (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
+  { threshold: 0.07 }
+);
+document.querySelectorAll('.fade').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
+
+```
